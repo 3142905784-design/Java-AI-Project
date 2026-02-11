@@ -5,6 +5,7 @@ import com.theo.mapper.EmpExprMapper;
 import com.theo.mapper.EmpMapper;
 import com.theo.pojo.*;
 import com.theo.service.EmpService;
+import com.theo.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
@@ -13,7 +14,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmpServiceImpl implements EmpService {
@@ -118,7 +121,16 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public LoginInfo login(Emp emp) {
-        
+        LoginInfo login = empMapper.login(emp);
+        if(login!=null){
+            //生成token
+            Map<String,Object> map = new HashMap<>();
+            map.put("id", login.getId());
+            map.put("username", login.getId());
+            String s = JwtUtils.generateToken(map);
+            login.setToken(s);
+            return login;
+        }
         return null;
     }
 }

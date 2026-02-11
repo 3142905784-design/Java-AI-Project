@@ -2,6 +2,7 @@ package com.theo.mapper;
 
 import com.theo.pojo.Emp;
 import com.theo.pojo.EmpQueryParam;
+import com.theo.pojo.LoginInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
@@ -61,4 +62,8 @@ public interface EmpMapper {
     List<Emp> listAll();
 
 
+    /**
+     * 登录验证
+     */
+    LoginInfo login(Emp emp);
 }

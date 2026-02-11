@@ -58,5 +58,10 @@
         select (case when gender=1 then '男' when gender=2 then '女' else '其他' end) name,
         count(*) value from emp group by gender order by value;
     </select>
+    <select id="login" resultType="com.theo.pojo.LoginInfo">
+        select id, username, name
+        from emp
+        where username = #{username} and password = #{password}
+    </select>
 
 </mapper>
